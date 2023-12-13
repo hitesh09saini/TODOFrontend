@@ -56,7 +56,7 @@ const App = () => {
   }, []);
 
   return (
-    <div className='bg-red-400 flex flex-col items-center relative h-screen'>
+    <div className='bg-red-400 flex flex-col pt-3 items-center relative h-screen'>
       <h1 className='text-center text-4xl'>MERN Todo <span className='text-6xl font-bold '>A</span>pp</h1>
       <div className='flex justify-center w-[100%] items-center max-md:flex-wrap  mt-4'>
         <input className='m-2 md:m-5  max-md:w-full text-2xl outline-none p-2'
