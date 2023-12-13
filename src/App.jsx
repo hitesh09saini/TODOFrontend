@@ -42,19 +42,21 @@ const App = () => {
     const fetchData = async () => {
       try {
         const res = await axios(`${URL}/todos`);
-
         console.log(res);
         setTodos(res.data.todos);
       } catch (error) {
         console.error("Error fetching data:", error.message);
       }
     };
-
+  
     fetchData(); // Initial fetch
-
+    const intervalId = setInterval(fetchData, 900);
+  
+    return () => {
+      clearInterval(intervalId);
+    };
   }, []);
-
-
+  
 
   return (
     <div className='bg-red-400 flex flex-col items-center  h-screen'>
