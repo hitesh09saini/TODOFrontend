@@ -25,6 +25,10 @@ const App = () => {
   const handleStatus = (key_id) => {
     axios.put(`${URL}/todos/${key_id}`).then((res) => {
       console.log(res.data.todo.completed);
+      setTodos((prevTasks) =>
+        prevTasks.map((task) =>
+          task.id === key_id ? { ...task, completed: true } : task
+        ))
     }).catch((e) => {
       console.log("Error update to status:", e);
     })
@@ -32,7 +36,7 @@ const App = () => {
 
   const handleDelete = (key_id) => {
     axios.delete(`${URL}/todos/${key_id}`).then((res) => {
-
+      setTodos((prevTasks) => prevTasks.filter((task) => task.id !== key_id))
     }).catch((e) => {
       console.log("Error Delete todo:", e);
     })
@@ -48,19 +52,19 @@ const App = () => {
         console.error("Error fetching data:", error.message);
       }
     };
-  
+
     fetchData(); // Initial fetch
     const intervalId = setInterval(fetchData, 900);
-  
+
     return () => {
       clearInterval(intervalId);
     };
   }, []);
-  
+
 
   return (
     <div className='bg-red-400 flex flex-col items-center  h-screen'>
-         <h1 className='text-center text-4xl'>MERN Todo <span className='text-6xl font-bold '>A</span>pp</h1>
+      <h1 className='text-center text-4xl'>MERN Todo <span className='text-6xl font-bold '>A</span>pp</h1>
       <div className='flex justify-center w-[100%] items-center max-md:flex-wrap  mt-4'>
         <input className='m-2 md:m-5  max-md:w-full text-2xl outline-none p-2'
           type="text"
@@ -82,10 +86,10 @@ const App = () => {
 
         {todos.map((todo) => (
           <li key={todo._id} className='bg-gray-400  m-2 items-center justify-between flex md:p-2 text-2xl rounded'>
-            <div onDoubleClick={() => handleUpdate(todo._id)} className='relative w-11/12 pl-2 md:pr-2' title='double click for edit'>
+            <div onDoubleClick={() => handleUpdate(todo._id)} className='relative  p-2' title='double click for edit'>
               {todo.text}
             </div>
-            <div className='md:w-[100px] md:flex'>
+            <div className=' md:flex'>
               <button onClick={() => handleStatus(todo._id)} className='bg-green-400 active:animate-bounce rounded p-2 m-2 w-[40px]' style={{ background: !todo.completed ? 'green' : 'red' }}>
                 {!todo.completed ? <i className="fa-solid fa-check"></i> : <i className="fa-solid fa-xmark"></i>}
               </button>
