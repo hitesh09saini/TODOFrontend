@@ -1,14 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+const config = {
+  headers: {
+    'Content-Type': 'application/json', // You can set your desired content type here
+  },
+};
 
 const App = () => {
+
   const [todos, setTodos] = useState([]);
   const [newTodo, setNewTodo] = useState('');
   const URL = import.meta.env.VITE_SERVER_URL;
-
+  console.log(URL);
 
   const handleAddTodo = () => {
-    axios.post(URL, { text: newTodo }).then((res) => {
+    axios.post(`${URL}/todos/`, { text: newTodo }).then((res) => {
       setTodos([...todos, res.data.todo]);
       setNewTodo('');
     }).catch((e) => {
@@ -17,7 +23,7 @@ const App = () => {
   };
 
   const handleStatus = (key_id) => {
-    axios.put(`${URL}/${key_id}`).then((res) => {
+    axios.put(`${URL}/todos/${key_id}`).then((res) => {
       console.log(res.data.todo.completed);
     }).catch((e) => {
       console.log("Error update to status:", e);
@@ -25,8 +31,8 @@ const App = () => {
   }
 
   const handleDelete = (key_id) => {
-    axios.delete(`${URL}/${key_id}`).then((res) => {
-      console.log(res.data);
+    axios.delete(`${URL}/todos/${key_id}`).then((res) => {
+
     }).catch((e) => {
       console.log("Error Delete todo:", e);
     })
@@ -35,17 +41,19 @@ const App = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(URL);
+        const res = await axios(`${URL}/todos`);
+
+        console.log(res);
         setTodos(res.data.todos);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Error fetching data:", error.message);
       }
     };
-  
+
     fetchData(); // Initial fetch
-  
-  }, [handleDelete, handleStatus]); 
-  
+
+  }, []);
+
 
 
   return (
@@ -72,8 +80,8 @@ const App = () => {
 
         {todos.map((todo) => (
           <li key={todo._id} className='bg-gray-400 mt-5 items-center justify-between flex p-2 text-2xl rounded'>
-            <div onDoubleClick={()=>handleUpdate(todo._id)} className='relative w-11/12 pr-2' title='double click for edit'>
-              {todo.text} 
+            <div onDoubleClick={() => handleUpdate(todo._id)} className='relative w-11/12 pr-2' title='double click for edit'>
+              {todo.text}
             </div>
             <div className='w-[100px]'>
               <button onClick={() => handleStatus(todo._id)} className='bg-green-400 active:animate-bounce rounded p-2 mr-3 w-[40px]' style={{ background: !todo.completed ? 'green' : 'red' }}>
