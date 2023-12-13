@@ -29,12 +29,12 @@ Before you begin, ensure you have the following installed:
 
 ### Installation
 1. Make New Folder
-   ```bash
+```bash
 mkdir MERN_Todo
 cd MERN_Todo
 mkdir Frontend
 mkdir Backend
-   ```
+```
 
 2. Clone the Frontend repository:
 ```bash
