@@ -24,8 +24,8 @@ This is a Todo List application built with the MERN stack (MongoDB, Express, Rea
 Before you begin, ensure you have the following installed:
 
 - Node.js and npm
-- MongoDB
-- Git
+- Start MongoDB Server
+- Git 
 
 ### Installation
 1. Make New Folder
@@ -45,10 +45,11 @@ npm install -D tailwindcss postcss autoprefixer
 npm run dev
 ```
 
-2. Clone the Backend repository:
+3. Clone the Backend repository:
 ```bash
 cd Backend
 git clone (https://github.com/hitesh09saini/TODOBackend.git)
 npm i
 npm start
 ```
+4. create .env file and add required things
