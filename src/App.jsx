@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-const config = {
-  headers: {
-    'Content-Type': 'application/json', // You can set your desired content type here
-  },
-};
+import Update from './component/Update.jsx'
 
 const App = () => {
 
@@ -22,48 +18,45 @@ const App = () => {
     })
   };
 
+
+
+  const fetchTodos = () => {
+    axios.get(`${URL}/todos`)
+      .then((res) => {
+        setTodos(res.data.todos);
+      })
+      .catch((error) => {
+        console.log("Error fetching todos:", error);
+      });
+  };
+
   const handleStatus = (key_id) => {
-    axios.put(`${URL}/todos/${key_id}`).then((res) => {
-      console.log(res.data.todo.completed);
-      setTodos((prevTasks) =>
-        prevTasks.map((task) =>
-          task.id === key_id ? { ...task, completed: true } : task
-        ))
-    }).catch((e) => {
-      console.log("Error update to status:", e);
-    })
-  }
+    axios.put(`${URL}/todos/${key_id}`)
+      .then((res) => {
+        console.log(res.data.todo.completed);
+        fetchTodos()
+
+      })
+      .catch((e) => {
+        console.log("Error updating status:", e);
+      });
+  };
 
   const handleDelete = (key_id) => {
     axios.delete(`${URL}/todos/${key_id}`).then((res) => {
-      setTodos((prevTasks) => prevTasks.filter((task) => task.id !== key_id))
-    }).catch((e) => {
-      console.log("Error Delete todo:", e);
+      fetchTodos()
     })
-  }
+      .catch((e) => {
+        console.log("Error deleting todo:", e);
+      });
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios(`${URL}/todos`);
-        console.log(res);
-        setTodos(res.data.todos);
-      } catch (error) {
-        console.error("Error fetching data:", error.message);
-      }
-    };
-
-    fetchData(); // Initial fetch
-    const intervalId = setInterval(fetchData, 900);
-
-    return () => {
-      clearInterval(intervalId);
-    };
+    fetchTodos();
   }, []);
 
-
   return (
-    <div className='bg-red-400 flex flex-col items-center  h-screen'>
+    <div className='bg-red-400 flex flex-col items-center relative h-screen'>
       <h1 className='text-center text-4xl'>MERN Todo <span className='text-6xl font-bold '>A</span>pp</h1>
       <div className='flex justify-center w-[100%] items-center max-md:flex-wrap  mt-4'>
         <input className='m-2 md:m-5  max-md:w-full text-2xl outline-none p-2'
