@@ -85,7 +85,7 @@ const App = () => {
             <div onDoubleClick={() => handleUpdate(todo._id)} className='relative w-11/12 pl-2 md:pr-2' title='double click for edit'>
               {todo.text}
             </div>
-            <div className='w-[100px] md:flex'>
+            <div className='md:w-[100px] md:flex'>
               <button onClick={() => handleStatus(todo._id)} className='bg-green-400 active:animate-bounce rounded p-2 m-2 w-[40px]' style={{ background: !todo.completed ? 'green' : 'red' }}>
                 {!todo.completed ? <i className="fa-solid fa-check"></i> : <i className="fa-solid fa-xmark"></i>}
               </button>
