@@ -82,7 +82,7 @@ const App = () => {
 
         {todos.map((todo) => (
           <li key={todo._id} className='bg-gray-400  m-2 items-center justify-between flex md:p-2 text-2xl rounded'>
-            <div onDoubleClick={() => handleUpdate(todo._id)} className='relative w-11/12 pr-2' title='double click for edit'>
+            <div onDoubleClick={() => handleUpdate(todo._id)} className='relative w-11/12 pl-2 pr-2' title='double click for edit'>
               {todo.text}
             </div>
             <div className='w-[100px] md:flex'>
