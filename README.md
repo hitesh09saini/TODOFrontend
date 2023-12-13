@@ -28,12 +28,27 @@ Before you begin, ensure you have the following installed:
 - Git
 
 ### Installation
+1. Make New Folder
+   ```bash
+mkdir MERN_Todo
+cd MERN_Todo
+mkdir Frontend
+mkdir Backend
+   ```
 
-1. Clone the Frontend repository:
+2. Clone the Frontend repository:
 ```bash
+cd Fronted
 git clone (https://github.com/hitesh09saini/TODOFrontend.git)
+npm i
+npm install -D tailwindcss postcss autoprefixer
+npm run dev
 ```
+
 2. Clone the Backend repository:
 ```bash
+cd Backend
 git clone (https://github.com/hitesh09saini/TODOBackend.git)
+npm i
+npm start
 ```
