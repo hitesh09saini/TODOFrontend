@@ -1,3 +1,27 @@
-::-webkit-scrollbar{
+::-webkit-scrollbar {
   display: none;
+}
+
+
+.pong {
+  animation: pong 0.5s linear 1;
+  transform: translateY(40px); 
+}
+
+@keyframes pong {
+  10%{
+    opacity: 0.5;
+    transform: translateY(10px);
+  }
+
+  50%{
+    opacity: 1;
+    transform: translateY(20px);
+  }
+  
+  100%{
+    opacity: 1;
+    transform: translateY(40px);
+  }
+
 }
